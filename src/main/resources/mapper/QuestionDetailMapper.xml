@@ -14,8 +14,8 @@
   </resultMap>
   <select id="getQuestionDetail" parameterType="int" resultType="com.ok.okhelper.pojo.po.QuestionDetail">
         select * from question_detail
-        where sort_id = #{0}
-        order by rand() limit #{1}
+        where sort_id = #{arg0}
+        order by rand() limit #{arg1}
   </select>
 
   <select id="getRandomQuestionDetail" parameterType="int" resultType="com.ok.okhelper.pojo.po.QuestionDetail">

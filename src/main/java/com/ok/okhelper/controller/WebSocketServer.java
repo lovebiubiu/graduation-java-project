@@ -123,6 +123,8 @@ public class WebSocketServer {
         }
     }
     /**
+     * 2019.3.26
+     * create by xb
      * 保存比赛结果
      * */
     public void getMatchResult(Session session,JSONObject obj){
