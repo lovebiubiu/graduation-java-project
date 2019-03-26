@@ -5,6 +5,9 @@ import com.ok.okhelper.util.MyMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,4 +21,6 @@ public interface CsessioninfoMapper extends MyMapper<Csessioninfo> {
     List<Csessioninfo> getRankFriendsData();
 
     Csessioninfo getGid(int openid);
+
+    void updateUserScore(int score,String openid);
 }

@@ -16,4 +16,6 @@ public interface QuestionSortService {
     List<Csessioninfo> getRankFriendsData();
 
     String getGid(int openid);
+
+    void updateUserScore(int win,String openId);
 }

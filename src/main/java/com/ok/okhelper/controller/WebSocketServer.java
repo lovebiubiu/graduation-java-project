@@ -4,10 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ok.okhelper.pojo.po.Player;
+import com.ok.okhelper.pojo.po.QuestionSort;
 import com.ok.okhelper.pojo.po.Room;
 
 
 import com.ok.okhelper.service.MatchService;
+import com.ok.okhelper.service.QuestionSortService;
 import com.ok.okhelper.service.impl.MatchServiceImpl;
 import com.ok.okhelper.util.ApplicationContextRegister;
 import org.slf4j.Logger;
@@ -35,6 +37,9 @@ public class WebSocketServer {
     //private static ApplicationContext applicationContext;
     @Autowired
     private static MatchService matchService;
+
+    @Autowired
+    private static QuestionSortService questionSortService;
 //    public static void setApplicationContext(ApplicationContext applicationContext) {
 //        WebSocketServer.applicationContext = applicationContext;
 //    }
@@ -107,23 +112,64 @@ public class WebSocketServer {
             case "ready_match":
                 ToReadyMatch(session,obj);
                 break;
+            case "send_answer":
+                ToSendOhterStatus(session,obj);
+                break;
+            case "send_result":
+                getMatchResult(session,obj);
+                break;
             default:
                     break;
         }
-
-
-        //群发消息
-//        for (WebSocketServer item : webSocketSet) {
-//            try {
-//                System.out.println(item);
-//                item.sendMessage("这是一条向用户发送的信息");
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
+    }
+    /**
+     * 保存比赛结果
+     * */
+    public void getMatchResult(Session session,JSONObject obj){
+        String openId = obj.getString("openId");
+        int res = Integer.parseInt(obj.getString("fightingResult"));
+        String roomName = obj.getString("roomName");
+        ApplicationContext act = ApplicationContextRegister.getApplicationContext();    //socket使用Service层方法
+        questionSortService = act.getBean(QuestionSortService.class);
+//        int user_score=questionSortService.getScore(openId);
+        if(res==1){
+            questionSortService.updateUserScore(1,openId);
+        }else if(res==0){
+            questionSortService.updateUserScore(0,openId);
+        }
+        playermap.remove(session);
+        log.info("将玩家"+session+"从map中删除");
+        if(roomMap.get(roomName)!=null){
+            roomMap.remove(roomName);
+            log.info("删除房间"+roomName);
+        }
     }
 
     /**
+     * 2019.3.25
+     * create by xb
+    * 发送玩家状态给另一玩家
+    * */
+    public void ToSendOhterStatus(Session session,JSONObject obj) throws IOException {
+        Session otherSession;
+        String openId = obj.getString("openId");
+        String userChoose = obj.getString("userChoose");
+        String answerColor = obj.getString("answerColor");
+        String score = obj.getString("scoreMyself");
+        String roomName = obj.getString("roomName");
+        Room room = roomMap.get(roomName);
+        if(session.getId().equals(room.getPlayer1().getId())){
+            otherSession = room.getPlayer2();
+        }else{
+            otherSession = room.getPlayer1();
+        }
+        String message = "sendOhterAnswer"+"|openId:"+openId+"|userChoose:"+userChoose+"|answerColor:"+answerColor+"|score:"+score;
+        sendInfo(message,otherSession);
+    }
+
+    /**
+     * 2019.3.25
+     * create by xb
     * 玩家已在房间中准备好
     * 如果两个玩家都准备好，比赛开始，发送题目给用户
     * */
@@ -135,7 +181,6 @@ public class WebSocketServer {
 
         roomName = obj.getString("roomName");
         Room room = roomMap.get(roomName);
-        log.info("roomName:"+roomName);
         player1 = room.getPlayer1();
         player2 = room.getPlayer2();
         if(session.getId().equals(player1.getId())){
@@ -153,9 +198,14 @@ public class WebSocketServer {
     }
 
 
-
+    /**
+     *  2019.3.25
+     *  create by xb
+     *  玩家进入队列组队
+     *  一旦
+     * */
     public void ToCreateRoom(Session session,JSONObject obj) throws InterruptedException, IOException {
-        Player player = new Player(session,obj.getString("nickName"),Integer.parseInt(obj.getString("sortId").trim()),obj.getString("avatarUrl"));
+        Player player = new Player(session,obj.getString("nickName"),Integer.parseInt(obj.getString("sortId").trim()),obj.getString("avatarUrl"),obj.getString("openid"));
         int sortId = player.getSortId();
         playermap.put(session,player);
         queuelist.get(sortId).put(session);

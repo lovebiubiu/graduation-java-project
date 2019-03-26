@@ -25,7 +25,7 @@ public class MatchServiceImpl implements MatchService {
     private int MATCH_SPEED = 3000; //匹配的频率:每3秒遍历匹配一次
     private int QUESTION_NUMBER= 5;//答题数5个
     private int SEND_QUESTIONS_DELAY= 3500;//匹配完成后，间隔3.5S后开始向前端发题
-    private int SEND_QUESTION_TIME= 16000;//发题的频率：每16秒发送一题
+    private int SEND_QUESTION_TIME= 14000;//发题的频率：每16秒发送一题
     private int PING_PONG_TIME= 6000;//PING-PONG响应的PING发送频率
     private int PING_PONG_OUT_TIME= 20000;//PING-PONG响应超时时间
     private int MAX_NUMBER_TUNNEL_RESEND= 3;//每个信道允许出现无效信道时重新发送的次数
@@ -57,7 +57,7 @@ public class MatchServiceImpl implements MatchService {
         MyThread runnable = new MyThread();
         Thread thread = new Thread(runnable);
         runnable.getparams(list,room);
-        thread.start();
+        thread.start();//是否需要手动关闭
     }
     class MyThread implements Runnable{
         String question="";
