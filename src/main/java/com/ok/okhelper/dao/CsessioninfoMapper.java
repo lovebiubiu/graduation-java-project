@@ -23,4 +23,6 @@ public interface CsessioninfoMapper extends MyMapper<Csessioninfo> {
     Csessioninfo getGid(int openid);
 
     void updateUserScore(int score,String openid);
+
+    Csessioninfo insertUser(String openId);
 }

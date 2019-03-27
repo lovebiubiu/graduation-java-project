@@ -43,9 +43,15 @@ public class QuestionSrotServiceImpl implements QuestionSortService {
         if(user!=null){
             res=user.getScore();
         }else{
-            res=-1;
+            user = createNewUser(id);
+            res = user.getScore();
         }
         return res;
+    }
+
+    @Transactional(isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
+    public Csessioninfo createNewUser(String openId){
+        return csessioninfoMapper.insertUser(openId);
     }
 
     @Override
@@ -76,10 +82,10 @@ public class QuestionSrotServiceImpl implements QuestionSortService {
         int score = getScore(openId);
         if(win==1){
             score=10;
-            logger.info("玩家"+openId+"的分数增加为"+score);
+            logger.info("玩家"+openId+"的分数增加"+score);
         }else if(win==0){
             score=-10;
-            logger.info("玩家"+openId+"的分数减少为"+score);
+            logger.info("玩家"+openId+"的分数减少"+score);
         }
         csessioninfoMapper.updateUserScore(score,openId);
     }

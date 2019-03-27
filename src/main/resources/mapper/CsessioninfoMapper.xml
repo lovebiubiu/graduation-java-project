@@ -42,4 +42,9 @@
         select * from cSessionInfo
         where open_id=#{0}
   </select>
+    <insert id="insertUser" parameterType="com.ok.okhelper.pojo.po.Csessioninfo">
+        insert into cSessionInfo(open_id,uuid,skey,session_key,user_info,score)
+        values (#{openId},#{uuid},#{skey},#{sessionKey},#{userInfo},#{score})
+    </insert>
+
 </mapper>

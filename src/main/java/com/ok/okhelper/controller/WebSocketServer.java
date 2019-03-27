@@ -118,10 +118,23 @@ public class WebSocketServer {
             case "send_result":
                 getMatchResult(session,obj);
                 break;
+            case "atonce_send":
+                atonceSendQuestion(obj);
+                break;
             default:
                     break;
         }
     }
+
+    public void atonceSendQuestion(JSONObject obj) throws IOException {
+        log.info("双方答题完毕，继续发送下一道题");
+        String roomName;
+        roomName = obj.getString("roomName");
+        ApplicationContext act = ApplicationContextRegister.getApplicationContext();
+        matchService = act.getBean(MatchService.class);
+        matchService.sendQuestion(roomName);
+    }
+
     /**
      * 2019.3.26
      * create by xb
@@ -133,7 +146,6 @@ public class WebSocketServer {
         String roomName = obj.getString("roomName");
         ApplicationContext act = ApplicationContextRegister.getApplicationContext();    //socket使用Service层方法
         questionSortService = act.getBean(QuestionSortService.class);
-//        int user_score=questionSortService.getScore(openId);
         if(res==1){
             questionSortService.updateUserScore(1,openId);
         }else if(res==0){
@@ -152,8 +164,7 @@ public class WebSocketServer {
      * create by xb
     * 发送玩家状态给另一玩家
     * */
-    public void ToSendOhterStatus(Session session,JSONObject obj) throws IOException {
-        Session otherSession;
+    public void ToSendOhterStatus(Session session,JSONObject obj) throws IOException, InterruptedException {
         String openId = obj.getString("openId");
         String userChoose = obj.getString("userChoose");
         String answerColor = obj.getString("answerColor");
@@ -161,12 +172,21 @@ public class WebSocketServer {
         String roomName = obj.getString("roomName");
         Room room = roomMap.get(roomName);
         if(session.getId().equals(room.getPlayer1().getId())){
-            otherSession = room.getPlayer2();
+            room.setPlayer1Choose(userChoose);
+            room.setPlayer1AnswerColor(answerColor);
+            room.setPlayer1score(score);
         }else{
-            otherSession = room.getPlayer1();
+            room.setPlayer2Choose(userChoose);
+            room.setPlayer2AnswerColor(answerColor);
+            room.setPlayer2score(score);
         }
-        String message = "sendOhterAnswer"+"|openId:"+openId+"|userChoose:"+userChoose+"|answerColor:"+answerColor+"|score:"+score;
-        sendInfo(message,otherSession);
+        log.info(room.getPlayer1Choose()+"||"+room.getPlayer2Choose());
+        if(room.getPlayer1Choose()!=null&&room.getPlayer2Choose()!=null){
+            ApplicationContext act = ApplicationContextRegister.getApplicationContext();
+            matchService = act.getBean(MatchService.class);
+            matchService.sendStatus(room);
+        }
+
     }
 
     /**
