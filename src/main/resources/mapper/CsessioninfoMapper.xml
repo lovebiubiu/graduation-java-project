@@ -14,6 +14,7 @@
       <arg column="session_key" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="user_info" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="score" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="avatar" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <select id="getScore" resultType="com.ok.okhelper.pojo.po.Csessioninfo">
@@ -26,16 +27,20 @@
         set score = score+ #{arg0}
         where open_id = #{arg1}
     </update>
+
+    <!-- 查询全国排行榜-->
   <select id="getRankGlobalData" resultType="com.ok.okhelper.pojo.po.Csessioninfo">
-        select * from cSessionInfo
+        select open_id as openId,user_info as userInfo,score,avatar from cSessionInfo
         order by score desc
-        limit 10
+        limit #{0},10
   </select>
 
+    <!-- 查询好友排行榜-->
     <select id="getRankFriendsData" resultType="com.ok.okhelper.pojo.po.Csessioninfo">
-        select * from cSessionInfo
+        select open_id as openId,user_info as userInfo,score,avatar from cSessionInfo  a,friendsnetwork b
+        where a.open_id = b.fromOpenId and b.openId =#{arg0}
         order by score desc
-        limit 10
+        limit #{arg1},10
   </select>
 
     <select id="getGid" resultType="com.ok.okhelper.pojo.po.Csessioninfo">
@@ -43,8 +48,8 @@
         where open_id=#{0}
   </select>
     <insert id="insertUser" parameterType="com.ok.okhelper.pojo.po.Csessioninfo">
-        insert into cSessionInfo(open_id,uuid,skey,session_key,user_info,score)
-        values (#{openId},#{uuid},#{skey},#{sessionKey},#{userInfo},#{score})
+        insert into cSessionInfo(open_id,uuid,skey,session_key,user_info,score,avatar)
+        values (#{openId},#{uuid},#{skey},#{sessionKey},#{userInfo},#{score},#{avatar})
     </insert>
 
 </mapper>

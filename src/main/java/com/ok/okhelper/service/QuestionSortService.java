@@ -9,11 +9,11 @@ public interface QuestionSortService {
 
     List<QuestionSort> getRankTypeList();
 
-    int getScore(String id);
+    int getScore(String id,String name,String avatarUrl);
 
-    List<Csessioninfo> getRankGlobalData();
+    List<Csessioninfo> getRankGlobalData(int globalPageNum);
 
-    List<Csessioninfo> getRankFriendsData();
+    List<Csessioninfo> getRankFriendsData(String openId,int friendPagenum);
 
     String getGid(int openid);
 

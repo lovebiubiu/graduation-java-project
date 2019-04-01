@@ -16,13 +16,13 @@ import java.util.List;
 public interface CsessioninfoMapper extends MyMapper<Csessioninfo> {
     Csessioninfo getScore(String id);
 
-    List<Csessioninfo> getRankGlobalData();
+    List<Csessioninfo> getRankGlobalData(int num);
 
-    List<Csessioninfo> getRankFriendsData();
+    List<Csessioninfo> getRankFriendsData(String openId,int num);
 
     Csessioninfo getGid(int openid);
 
     void updateUserScore(int score,String openid);
 
-    Csessioninfo insertUser(String openId);
+    void insertUser(Csessioninfo user);
 }

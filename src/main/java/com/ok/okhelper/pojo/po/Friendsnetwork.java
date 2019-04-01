@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 public class Friendsnetwork {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
-    private Integer id;
+    private String id;
 
     @Column(name = "openId")
     private String openid;
@@ -21,7 +21,7 @@ public class Friendsnetwork {
 
     private Date time;
 
-    public Friendsnetwork(Integer id, String openid, String appid, String fromopenid, String fromgid, Date time) {
+    public Friendsnetwork(String id, String openid, String appid, String fromopenid, String fromgid, Date time) {
         this.id = id;
         this.openid = openid;
         this.appid = appid;
@@ -37,15 +37,15 @@ public class Friendsnetwork {
     /**
      * @return id
      */
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * @param id
      */
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     /**

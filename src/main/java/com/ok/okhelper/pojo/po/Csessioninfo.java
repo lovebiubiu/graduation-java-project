@@ -26,7 +26,9 @@ public class Csessioninfo {
 
     private Integer score;
 
-    public Csessioninfo(String openId, String uuid, String skey, Date createTime, Date lastVisitTime, String sessionKey, String userInfo, Integer score) {
+    private String avatar;
+
+    public Csessioninfo(String openId, String uuid, String skey, Date createTime, Date lastVisitTime, String sessionKey, String userInfo, Integer score, String avatar) {
         this.openId = openId;
         this.uuid = uuid;
         this.skey = skey;
@@ -35,6 +37,7 @@ public class Csessioninfo {
         this.sessionKey = sessionKey;
         this.userInfo = userInfo;
         this.score = score;
+        this.avatar = avatar;
     }
 
     public Csessioninfo() {
@@ -151,5 +154,19 @@ public class Csessioninfo {
      */
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    /**
+     * @return avatar
+     */
+    public String getAvatar() {
+        return avatar;
+    }
+
+    /**
+     * @param avatar
+     */
+    public void setAvatar(String avatar) {
+        this.avatar = avatar == null ? null : avatar.trim();
     }
 }

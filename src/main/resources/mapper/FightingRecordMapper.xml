@@ -6,7 +6,7 @@
       WARNING - @mbg.generated
     -->
     <constructor>
-      <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="room_name" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="run_away" javaType="java.lang.Boolean" jdbcType="BIT" />
       <arg column="open_id_winner" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -16,4 +16,8 @@
       <arg column="time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
+  <select id="getScore" resultType="com.ok.okhelper.pojo.po.Csessioninfo">
+        select score from cSessionInfo
+        where open_id = #{0}
+  </select>
 </mapper>

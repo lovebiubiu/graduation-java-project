@@ -1,8 +1,11 @@
 package com.ok.okhelper.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.ok.okhelper.pojo.po.Csessioninfo;
 import com.ok.okhelper.pojo.po.QuestionSort;
 import com.ok.okhelper.service.QuestionSortService;
+import com.ok.okhelper.service.impl.FriendsnetworkService;
+import com.ok.okhelper.util.GetAccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +25,8 @@ import java.util.List;
 public class QuestionSortController {
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @Autowired
+    FriendsnetworkService friendsnetworkService;
     @Autowired
     QuestionSortService questionSortService;
 
@@ -32,15 +38,14 @@ public class QuestionSortController {
     }
     @ApiOperation(value = "请求得分数",notes = "根据openid查询得分")
     @GetMapping("/getScore")
-    public int getScore(String openid){
-        logger.info("controller ID = "+openid);
-        return questionSortService.getScore(openid);
+    public int getScore(String openid,String nickName,String avatarUrl){
+        logger.info("user ID = "+openid+" | userName="+nickName+" | avatarUrl="+avatarUrl);
+        return questionSortService.getScore(openid,nickName,avatarUrl);
     }
     @ApiOperation(value = "请求二维码",notes = "请求二维码图片地址")
     @GetMapping("/qrAddress")
-    public String qrAddress(){
-
-        return "";
+    public String qrAddress(String scene) throws IOException {
+        return GetAccessToken.getQr(scene);
     }
     @ApiOperation(value = "请求分类",notes = "请求题目分类")
     @GetMapping("/getRankType")
@@ -49,7 +54,11 @@ public class QuestionSortController {
         list = questionSortService.getRankTypeList();
         return list;
     }
-
+    @ApiOperation(value = "添加好友",notes = "根据用户Id添加好友")
+    @GetMapping("/addFriend")
+    public int addFriend(String userOpenId,String friendOpenId){
+        return friendsnetworkService.addFriend(userOpenId,friendOpenId);
+    }
     @ApiOperation(value = "存储用户分享后的信息",notes = "存储用户分享后的信息")
     @GetMapping("/storeFriendsNetwork")
     public String storeFriendsNetwork(){
@@ -58,15 +67,14 @@ public class QuestionSortController {
     }
     @ApiOperation(value = "获取好友排行榜",notes = "获取好友用户关系表")
     @GetMapping("/getRankFriendsData")
-    public List<Csessioninfo> getRankFriendsData(){
+    public List<Csessioninfo> getRankFriendsData(String openId,int friendPageNum){
 
-        return questionSortService.getRankFriendsData();
+        return questionSortService.getRankFriendsData(openId,friendPageNum);
     }
     @ApiOperation(value = "获取全球排行榜",notes = "获取全球用户关系表(排行榜)")
     @GetMapping("/getRankGlobalData")
-    public List<Csessioninfo> getRankGlobalData(){
-
-        return questionSortService.getRankGlobalData();
+    public List<Csessioninfo> getRankGlobalData(int globalPageNum){
+        return questionSortService.getRankGlobalData(globalPageNum);
     }
     @ApiOperation(value = "存储用户关系点击表",notes = "存储用户关系点击表")
     @GetMapping("/storeUserNetwork")

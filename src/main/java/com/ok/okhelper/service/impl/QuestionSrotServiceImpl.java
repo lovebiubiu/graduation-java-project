@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -34,39 +35,41 @@ public class QuestionSrotServiceImpl implements QuestionSortService {
 
     @Override
     @Transactional(isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
-    public int getScore(String id) {
+    public int getScore(String id,String name,String avatarUrl) {
         int res;
         logger.info("------------------获取玩家分数-------------------");
-        logger.info("玩家id---"+id);
         Csessioninfo user = csessioninfoMapper.getScore(id);
 
         if(user!=null){
             res=user.getScore();
         }else{
-            user = createNewUser(id);
-            res = user.getScore();
+            createNewUser(id,name,avatarUrl);
+            res = 0;
         }
         return res;
     }
 
     @Transactional(isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
-    public Csessioninfo createNewUser(String openId){
-        return csessioninfoMapper.insertUser(openId);
+    public void createNewUser(String openId,String userName,String avatarUrl){
+        Csessioninfo user = new Csessioninfo(openId,"","",new Date(),new Date(),"",userName,0,avatarUrl);
+        csessioninfoMapper.insertUser(user);
     }
 
     @Override
-    public List<Csessioninfo> getRankGlobalData() {
+    public List<Csessioninfo> getRankGlobalData(int globalPageNum) {
         List<Csessioninfo> list = new ArrayList<>();
-        list = csessioninfoMapper.getRankGlobalData();
+        int num = globalPageNum*10;
+        list = csessioninfoMapper.getRankGlobalData(num);
+
         return list;
     }
 
     @Override
-    public List<Csessioninfo> getRankFriendsData() {
-        List<Csessioninfo> list = new ArrayList<>();
-        list = csessioninfoMapper.getRankGlobalData();
-        return list;
+    public List<Csessioninfo> getRankFriendsData(String openId,int friendPagenum) {
+
+        return csessioninfoMapper.getRankFriendsData(openId,friendPagenum);
     }
+
 
     @Override
     public String getGid(int openid) {
@@ -79,7 +82,7 @@ public class QuestionSrotServiceImpl implements QuestionSortService {
     @Override
     @Transactional(isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
     public void updateUserScore(int win, String openId) {
-        int score = getScore(openId);
+        int score = getScore(openId,"","");
         if(win==1){
             score=10;
             logger.info("玩家"+openId+"的分数增加"+score);

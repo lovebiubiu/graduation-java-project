@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "fighting_record")
 public class FightingRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
-    private Integer id;
+    private String id;
 
     @Column(name = "room_name")
     private String roomName;
@@ -28,7 +28,7 @@ public class FightingRecord {
 
     private Date time;
 
-    public FightingRecord(Integer id, String roomName, Boolean runAway, String openIdWinner, String openIdLoser, Integer scoreWinner, Integer scoreLoser, Date time) {
+    public FightingRecord(String id, String roomName, Boolean runAway, String openIdWinner, String openIdLoser, Integer scoreWinner, Integer scoreLoser, Date time) {
         this.id = id;
         this.roomName = roomName;
         this.runAway = runAway;
@@ -46,15 +46,15 @@ public class FightingRecord {
     /**
      * @return id
      */
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * @param id
      */
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     /**
