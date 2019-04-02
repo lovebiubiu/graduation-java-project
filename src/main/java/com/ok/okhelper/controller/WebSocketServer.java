@@ -12,6 +12,7 @@ import com.ok.okhelper.service.MatchService;
 import com.ok.okhelper.service.QuestionSortService;
 import com.ok.okhelper.service.impl.MatchServiceImpl;
 import com.ok.okhelper.util.ApplicationContextRegister;
+import io.swagger.models.auth.In;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,8 @@ public class WebSocketServer {
 
     @Autowired
     private static QuestionSortService questionSortService;
+
+
 //    public static void setApplicationContext(ApplicationContext applicationContext) {
 //        WebSocketServer.applicationContext = applicationContext;
 //    }
@@ -92,6 +95,13 @@ public class WebSocketServer {
     @OnClose
     public void onClose() {
         webSocketSet.remove(this);  //从set中删除
+        Player player = playermap.get(this.session);
+        if(player!=null){
+            int sortId = player.getSortId();
+            queuelist.get(sortId).remove(this.session);
+            playermap.remove(this.session);
+            log.info("现在队列" + sortId + "长度为：" + queuelist.get(sortId).size());
+        }
         subOnlineCount();           //在线数减1
         log.info("有一连接关闭！当前在线人数为" + getOnlineCount());
     }
@@ -121,11 +131,59 @@ public class WebSocketServer {
             case "atonce_send":
                 atonceSendQuestion(obj);
                 break;
+            case "friend_match":
+                CreateFriendRoom(session,obj);
+                break;
             default:
                     break;
         }
     }
 
+    /**
+     * 2019/4/2
+     * create by xb
+     * 创建好友对战房间
+     * */
+    public void CreateFriendRoom(Session session,JSONObject obj) throws IOException {
+        String roomName = obj.getString("roomName");
+        Room temp = roomMap.get(roomName);
+        int sortId = Integer.parseInt(obj.getString("sortId").trim());
+        if(temp!=null){ //房间已存在
+            if(temp.getPlayer2()!=null){       //两名玩家都已经在房间中 不能加入新的玩家
+                sendInfo("error|room is fighting",session);
+                return ;
+            }
+            else{   //加入第二名玩家
+                Player player = new Player(session,obj.getString("nikeName"),Integer.parseInt(obj.getString("sortId").trim()),obj.getString("avatarUrl"),obj.getString("openId"));
+                playermap.put(session,player);
+                Player player1, player2;
+                String msg;
+                temp.setPlayer2(session);
+                player1 = playermap.get(temp.getPlayer1());
+                player2 = playermap.get(temp.getPlayer2());
+                //向一号玩家发送消息
+                msg = "roomName|" + temp.getRoomName() + "|roomId|" + temp.getRoomId() + "|nickName|" + player2.getNickName() + "|avatarUrl|" + player2.getAvatarUrl();                                      //发送的消息
+                sendInfo(msg, temp.getPlayer1());
+                //向二号玩家发送消息
+                msg = "roomName|" + temp.getRoomName() + "|roomId|" + temp.getRoomId() + "|nickName|" + player1.getNickName() + "|avatarUrl|" + player1.getAvatarUrl();
+                sendInfo(msg, temp.getPlayer2());
+            }
+        }else{      //加入第一名玩家
+            log.info("第一个玩家进入，创建房间");
+            Player player = new Player(session,obj.getString("nikeName"),Integer.parseInt(obj.getString("sortId").trim()),obj.getString("avatarUrl"),obj.getString("openId"));
+            playermap.put(session,player);
+            ApplicationContext act = ApplicationContextRegister.getApplicationContext();
+            matchService = act.getBean(MatchService.class);
+            Room room = matchService.createFriendRoom(sortId,session,roomName);
+            roomMap.put(room.getRoomName(),room);
+        }
+    }
+
+    /**
+     * 2019/4/2
+     * create by xb
+     * 立刻发送下一题
+     * */
     public void atonceSendQuestion(JSONObject obj) throws IOException {
         log.info("双方答题完毕，继续发送下一道题");
         String roomName;
@@ -162,8 +220,8 @@ public class WebSocketServer {
     /**
      * 2019.3.25
      * create by xb
-    * 发送玩家状态给另一玩家
-    * */
+     * 发送玩家状态给另一玩家
+     * */
     public void ToSendOhterStatus(Session session,JSONObject obj) throws IOException, InterruptedException {
         String openId = obj.getString("openId");
         String userChoose = obj.getString("userChoose");
@@ -192,10 +250,9 @@ public class WebSocketServer {
     /**
      * 2019.3.25
      * create by xb
-    * 玩家已在房间中准备好
-    * 如果两个玩家都准备好，比赛开始，发送题目给用户
-    * */
-
+     * 玩家已在房间中准备好
+     * 如果两个玩家都准备好，比赛开始，发送题目给用户
+     * */
     public void ToReadyMatch(Session session,JSONObject obj) throws IOException {
         String roomName;
         Session player1,player2;
@@ -224,7 +281,7 @@ public class WebSocketServer {
      *  2019.3.25
      *  create by xb
      *  玩家进入队列组队
-     *  一旦
+     *  一旦队列中超过两人 则创建房间
      * */
     public void ToCreateRoom(Session session,JSONObject obj) throws InterruptedException, IOException {
         Player player = new Player(session,obj.getString("nickName"),Integer.parseInt(obj.getString("sortId").trim()),obj.getString("avatarUrl"),obj.getString("openid"));
@@ -236,7 +293,8 @@ public class WebSocketServer {
         if(queuelist.get(sortId).size()>=2) {
             Session player1, player2;
             String msg;
-            MatchServiceImpl matchService = new MatchServiceImpl();
+            ApplicationContext act = ApplicationContextRegister.getApplicationContext();
+            matchService = act.getBean(MatchService.class);
             player1 = queuelist.get(sortId).pollFirst();
             player2 = queuelist.get(sortId).pollFirst();
             Player temp1 = playermap.get(player2);
@@ -271,6 +329,7 @@ public class WebSocketServer {
         log.error("发生错误");
         error.printStackTrace();
     }
+
     /**
      * 实现服务器主动推送
      */

@@ -11,6 +11,8 @@ import java.io.IOException;
 public interface MatchService{
     Room createRoom(int sortId, Session session1, Session session2);
 
+    Room createFriendRoom(int sortId, Session session,String roomName);
+
     public void toSendQuestion(String roomName) throws IOException;
 
     public void sendQuestion(String roomName) throws IOException;

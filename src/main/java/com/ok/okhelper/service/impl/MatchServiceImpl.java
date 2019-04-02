@@ -41,6 +41,10 @@ public class MatchServiceImpl implements MatchService {
         Room room = new Room(roomName,session1,session2,sortId,0);
         return room;
     }
+    public Room createFriendRoom(int sortId, Session session,String roomName){
+        Room room = new Room(roomName,session,sortId,0);
+        return room;
+    }
 
     public void toSendQuestion(String roomName) throws IOException {
         int sortId;

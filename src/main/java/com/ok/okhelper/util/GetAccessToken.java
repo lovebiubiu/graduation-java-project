@@ -38,7 +38,7 @@ public class GetAccessToken {
     public static String grantType = "client_credential";
     Logger log = LoggerFactory.getLogger(this.getClass());
     //获取accessToken定时任务
-    @Scheduled(cron = "0 */40 * * * * ")
+    @Scheduled(cron = "0 */30 * * * * ")
     public void getAccessToken() {
         log.info("———————————————定时获取AccessToken———————————————");
         String requestUrl=url+"?grant_type="+grantType+"&appid="+appid+"&secret="+secret;

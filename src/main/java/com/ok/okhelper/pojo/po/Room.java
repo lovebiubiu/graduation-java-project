@@ -37,5 +37,11 @@ public class Room {
         this.sortId = sortId;
         this.answerNum=0;
     }
-
+    public Room(String roomName,Session session1,int sortId,int responseNumber){
+        this.roomName = roomName;
+        this.player1 = session1;
+        this.responseNumber = responseNumber;
+        this.sortId = sortId;
+        this.answerNum=0;
+    }
 }
