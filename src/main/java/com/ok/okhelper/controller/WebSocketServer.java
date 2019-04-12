@@ -43,11 +43,6 @@ public class WebSocketServer {
     private static QuestionSortService questionSortService;
 
 
-//    public static void setApplicationContext(ApplicationContext applicationContext) {
-//        WebSocketServer.applicationContext = applicationContext;
-//    }
-
-
     Logger log = LoggerFactory.getLogger(this.getClass());
     //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
     private static int onlineCount = 0;
@@ -115,6 +110,7 @@ public class WebSocketServer {
         JSONArray jsonArray=JSON.parseArray(message);
         JSONObject obj = jsonArray.getJSONObject(0);        //json格式化处理为object
         String msgType = obj.getString("socketType");
+        log.info("收到客户端消息："+message);
         switch (msgType){
             case "join_match":
                 ToCreateRoom(session,obj);
@@ -134,11 +130,25 @@ public class WebSocketServer {
             case "friend_match":
                 CreateFriendRoom(session,obj);
                 break;
+            case "closeRoom":
+                CloseRoom(session,obj);
+                break;
             default:
                     break;
         }
     }
 
+    /**
+     * 2019/4/4
+     * create by xb
+     * 关闭一个房间
+     * */
+    public void CloseRoom(Session session,JSONObject obj) throws IOException {
+        String roomName = obj.getString("roomName");
+        log.info("关闭房间:"+roomName);
+        roomMap.remove(roomName);
+        sendInfo("success|roomName:"+roomName,session);
+    }
     /**
      * 2019/4/2
      * create by xb
@@ -148,18 +158,24 @@ public class WebSocketServer {
         String roomName = obj.getString("roomName");
         Room temp = roomMap.get(roomName);
         int sortId = Integer.parseInt(obj.getString("sortId").trim());
-        if(temp!=null){ //房间已存在
+        int friendMatch = Integer.parseInt(obj.getString("friendMatch").trim());
+        if(temp!=null){ //判断房间是否存在 若不存在则创建房间
             if(temp.getPlayer2()!=null){       //两名玩家都已经在房间中 不能加入新的玩家
                 sendInfo("error|room is fighting",session);
                 return ;
             }
-            else{   //加入第二名玩家
-                Player player = new Player(session,obj.getString("nikeName"),Integer.parseInt(obj.getString("sortId").trim()),obj.getString("avatarUrl"),obj.getString("openId"));
+            else if(friendMatch==2){   //加入第二名玩家
+                Player player = new Player(session,obj.getString("nickName"),Integer.parseInt(obj.getString("sortId").trim()),obj.getString("avatarUrl"),obj.getString("openId"));
                 playermap.put(session,player);
                 Player player1, player2;
                 String msg;
                 temp.setPlayer2(session);
                 player1 = playermap.get(temp.getPlayer1());
+                if(player1==null){
+                    sendInfo("error|room don't exists",session);
+                    roomMap.remove(roomName);
+                    return ;
+                }
                 player2 = playermap.get(temp.getPlayer2());
                 //向一号玩家发送消息
                 msg = "roomName|" + temp.getRoomName() + "|roomId|" + temp.getRoomId() + "|nickName|" + player2.getNickName() + "|avatarUrl|" + player2.getAvatarUrl();                                      //发送的消息
@@ -168,14 +184,16 @@ public class WebSocketServer {
                 msg = "roomName|" + temp.getRoomName() + "|roomId|" + temp.getRoomId() + "|nickName|" + player1.getNickName() + "|avatarUrl|" + player1.getAvatarUrl();
                 sendInfo(msg, temp.getPlayer2());
             }
-        }else{      //加入第一名玩家
-            log.info("第一个玩家进入，创建房间");
-            Player player = new Player(session,obj.getString("nikeName"),Integer.parseInt(obj.getString("sortId").trim()),obj.getString("avatarUrl"),obj.getString("openId"));
+        }else if(friendMatch==1){      //加入第一名玩家
+            log.info("第一个玩家进入，创建房间:"+roomName);
+            Player player = new Player(session,obj.getString("nickName"),Integer.parseInt(obj.getString("sortId").trim()),obj.getString("avatarUrl"),obj.getString("openId"));
             playermap.put(session,player);
             ApplicationContext act = ApplicationContextRegister.getApplicationContext();
             matchService = act.getBean(MatchService.class);
             Room room = matchService.createFriendRoom(sortId,session,roomName);
             roomMap.put(room.getRoomName(),room);
+        }else{
+            sendInfo("error|room don't exists",session);
         }
     }
 

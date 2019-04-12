@@ -20,10 +20,11 @@ public class MyRunner implements CommandLineRunner {
         GetAccessToken.AccessToken=GetAccessToken.doPost(requestUrl,"");
         //log.info("AccessToken:"+GetAccessToken.AccessToken);
         //GetAccessToken.getQr();
-        //GetAccessToken.getQr();
     }
     public static void main(String[] args) throws IOException {
         System.out.println("------------AccessToken:"+GetAccessToken.AccessToken+"-------------------");
+        String requestUrl= GetAccessToken.url+"?grant_type="+GetAccessToken.grantType+"&appid="+GetAccessToken.appid+"&secret="+GetAccessToken.secret;
+        GetAccessToken.AccessToken=GetAccessToken.doPost(requestUrl,"");
         GetAccessToken.getQr__2("qaq");
     }
 }

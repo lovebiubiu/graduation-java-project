@@ -40,6 +40,7 @@ public class Room {
     public Room(String roomName,Session session1,int sortId,int responseNumber){
         this.roomName = roomName;
         this.player1 = session1;
+        this.player2=null;
         this.responseNumber = responseNumber;
         this.sortId = sortId;
         this.answerNum=0;

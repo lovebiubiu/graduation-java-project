@@ -22,6 +22,7 @@ import sun.misc.BASE64Encoder;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -107,17 +108,18 @@ public class GetAccessToken {
             while ((ch = inputStream.read()) != -1) {
                 bytestream.write(ch);
             }
+            byte[] program = bytestream.toByteArray();
+            BASE64Encoder encoder = new BASE64Encoder();
+            String binary = encoder.encodeBuffer(program);
+            getQr__2(scene);
+            return binary;
         }
         catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        byte[] program = bytestream.toByteArray();
-        BASE64Encoder encoder = new BASE64Encoder();
-        String binary = encoder.encodeBuffer(program).trim();
-        getQr__2(scene);
-        //System.out.println("binary:"+binary);
-        return binary;
+
+        return "error";
     }
     public static void getQr__2(String scene){
         try {
