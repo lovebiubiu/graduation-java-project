@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ok.okhelper.dao.NewsMapper">
+  <resultMap id="BaseResultMap" type="com.ok.okhelper.pojo.po.News">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <constructor>
+      <arg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="description" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="picUrl" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="url" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ctime" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insertNews" parameterType="com.ok.okhelper.pojo.po.News">
+        insert into news
+        values (#{id},#{title},#{description},#{picurl},#{url},#{ctime})
+    </insert>
+  <delete id="deleteNews">
+        delete from news
+  </delete>
+  <select id="getNewsData" parameterType="int" resultType="com.ok.okhelper.pojo.po.News">
+        select * from news
+        order by id desc
+        limit #{0},10
+  </select>
+</mapper>

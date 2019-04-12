@@ -1,10 +1,8 @@
 package com.ok.okhelper.util;
 
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.ok.okhelper.pojo.po.News;
 
 import java.io.*;
@@ -12,7 +10,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class HttpClient {
 
@@ -48,17 +45,19 @@ public class HttpClient {
                 return res;
         }
         public static void main(String[] args) {
-                String url = "http://api.tianapi.com/nba/?key=345fd9f07e15937b2ff3559bd8e7a92c&num=1";
-                JSONObject paramJson = new JSONObject();
+                String url = "http://api.tianapi.com/nba/?key=345fd9f07e15937b2ff3559bd8e7a92c&num=50";
                 String res = HttpClient.doPost(url,"POST");
-                JSONObject obj = JSONObject.parseObject(res);
-                for(int i=0;i<obj.size();i++){
-                        Object temp = obj.get("newslist");
-                        obj = JSONObject.parseObject(temp.toString());
-                        System.out.println(obj);
+                JSONObject jsonObject = JSONObject.parseObject(res);
+                String res2 = jsonObject.getString("newslist");
+                JSONArray jsonArray = JSONArray.parseArray(res2);
+
+                List<News> list = new ArrayList<>();
+                for(int i = 0 ;i<jsonArray.size();i++){
+                        JSONObject temp = jsonArray.getJSONObject(i);
+                        News newstemp = new News(Long.toString(UidUtil.getInstance().nextId()),temp.getString("picUrl"),temp.getString("ctime"),temp.getString("description"),temp.getString("title"),temp.getString("url"));
+                        list.add(newstemp);
                 }
-                //News test = (News)JSONObject.toJavaObject(obj,News.class);
-//                String news = obj.getString("newslist");
+                System.out.println(list);
 
         }
 }
