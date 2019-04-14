@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ok.okhelper.dao.ScheduleMapper">
+  <resultMap id="BaseResultMap" type="com.ok.okhelper.pojo.po.Schedule">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <constructor>
+      <arg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="title" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="player1" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="player1_logo" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="player1_logo_big" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="player1_Url" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="player2" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="player2_logo" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="player2_logo_big" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="player2_Url" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="score" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="status" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+</mapper>
