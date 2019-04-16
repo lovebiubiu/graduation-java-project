@@ -17,7 +17,7 @@ public class MyRunner implements CommandLineRunner {
     Logger log = LoggerFactory.getLogger(this.getClass());
     @Override
     public void run(String... args) throws Exception {
-        log.info("———————————————执行启动方法,获取新闻———————————————");
+        log.info("———————————————执行启动方法———————————————");
         NewsServiceImpl newsService = new NewsServiceImpl();
 //        List<News> list = newsService.getNewsMessage();
 //        System.out.println(list);
