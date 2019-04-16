@@ -7,7 +7,7 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
     private String id;
 
-    private Date title;
+    private String title;
 
     private String player1;
 
@@ -35,9 +35,9 @@ public class Schedule {
 
     private String status;
 
-    private Date time;
+    private String time;
 
-    public Schedule(String id, Date title, String player1, String player1Logo, String player1LogoBig, String player1Url, String player2, String player2Logo, String player2LogoBig, String player2Url, String score, String status, Date time) {
+    public Schedule(String id, String title, String player1, String player1Logo, String player1LogoBig, String player1Url, String player2, String player2Logo, String player2LogoBig, String player2Url, String score, String status, String time) {
         this.id = id;
         this.title = title;
         this.player1 = player1;
@@ -74,14 +74,14 @@ public class Schedule {
     /**
      * @return title
      */
-    public Date getTitle() {
+    public String getTitle() {
         return title;
     }
 
     /**
      * @param title
      */
-    public void setTitle(Date title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
@@ -228,14 +228,14 @@ public class Schedule {
     /**
      * @return time
      */
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
     /**
      * @param time
      */
-    public void setTime(Date time) {
+    public void setTime(String time) {
         this.time = time;
     }
 }

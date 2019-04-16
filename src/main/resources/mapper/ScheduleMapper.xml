@@ -7,7 +7,7 @@
     -->
     <constructor>
       <arg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="title" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="title" javaType="java.lang.String" jdbcType="TIMESTAMP" />
       <arg column="player1" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="player1_logo" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="player1_logo_big" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -18,7 +18,7 @@
       <arg column="player2_Url" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="score" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="status" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="time" javaType="java.lang.String" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
 </mapper>
