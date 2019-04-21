@@ -17,13 +17,16 @@ public class News {
 
     private String ctime;
 
-    public News(String id, String title, String description, String picurl, String url, String ctime) {
+    private Integer visible;
+
+    public News(String id, String title, String description, String picurl, String url, String ctime, Integer visible) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.picurl = picurl;
         this.url = url;
         this.ctime = ctime;
+        this.visible = visible;
     }
 
     public News() {
@@ -112,5 +115,19 @@ public class News {
      */
     public void setCtime(String ctime) {
         this.ctime = ctime == null ? null : ctime.trim();
+    }
+
+    /**
+     * @return visible
+     */
+    public Integer getVisible() {
+        return visible;
+    }
+
+    /**
+     * @param visible
+     */
+    public void setVisible(Integer visible) {
+        this.visible = visible;
     }
 }

@@ -12,4 +12,15 @@
       <arg column="linkDescription" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
+  <select id="getList" resultType="com.ok.okhelper.pojo.po.Friendlylink">
+    select * from friendlyLink
+  </select>
+  <insert id="insertFriendlyLink" parameterType="com.ok.okhelper.pojo.po.Friendlylink">
+        insert into friendlyLink
+        values (#{id},#{linkname},#{linkurl},#{linkdescription})
+    </insert>
+  <delete id="deleteFriendlyLink" parameterType="String">
+      delete from friendlyLink
+      where id = #{0}
+  </delete>
 </mapper>

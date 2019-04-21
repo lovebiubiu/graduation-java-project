@@ -15,4 +15,8 @@ public interface NewsMapper extends MyMapper<News> {
     void deleteNews();
 
     List<News> getNewsData(int pageNum);
+
+    List<News> getNewsList(int pageNum);
+
+    void setVisible(String id);
 }

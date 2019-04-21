@@ -12,18 +12,29 @@
       <arg column="picUrl" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="url" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="ctime" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="visible" javaType="java.lang.Integer" jdbcType="INTEGER" />
     </constructor>
   </resultMap>
   <insert id="insertNews" parameterType="com.ok.okhelper.pojo.po.News">
         insert into news
-        values (#{id},#{title},#{description},#{picurl},#{url},#{ctime})
+        values (#{id},#{title},#{description},#{picurl},#{url},#{ctime},#{visible})
     </insert>
   <delete id="deleteNews">
         delete from news
   </delete>
   <select id="getNewsData" parameterType="int" resultType="com.ok.okhelper.pojo.po.News">
         select * from news
-        order by id desc
+        where visible=1
+        order by id
         limit #{0},10
   </select>
+    <select id="getNewsList" parameterType="int" resultType="com.ok.okhelper.pojo.po.News">
+        select * from news
+        order by id
+        limit #{0},10
+  </select>
+    <update id="setVisible">
+        update news set visible = (visible+1)%2
+        where id=#{0}
+    </update>
 </mapper>

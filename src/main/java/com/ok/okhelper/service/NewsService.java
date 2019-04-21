@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface NewsService {
     List<News> getNewsMessage(int pageNum);
+
+    List<News> getNewsBackstage(int pageNum);
+
+    void setVisible(String id);
 }

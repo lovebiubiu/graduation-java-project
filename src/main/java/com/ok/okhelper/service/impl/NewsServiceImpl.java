@@ -48,7 +48,7 @@ public class NewsServiceImpl implements NewsService {
             JSONArray jsonArray = JSONArray.parseArray(res2);
             for(int i = 0 ;i<jsonArray.size();i++){
                 JSONObject temp = jsonArray.getJSONObject(i);
-                News newstemp = new News(Long.toString(UidUtil.getInstance().nextId()),temp.getString("title"),temp.getString("description"),temp.getString("picUrl"),temp.getString("url"),temp.getString("ctime"));
+                News newstemp = new News(Long.toString(UidUtil.getInstance().nextId()),temp.getString("title"),temp.getString("description"),temp.getString("picUrl"),temp.getString("url"),temp.getString("ctime"),1);
                 newsMapper.insertNews(newstemp);
             }
         }
@@ -59,6 +59,17 @@ public class NewsServiceImpl implements NewsService {
     public List<News> getNewsMessage(int pageNum) {
         List<News> list = newsMapper.getNewsData(pageNum*10);
         return list;
+    }
+
+    @Override
+    public List<News> getNewsBackstage(int pageNum) {
+        List<News> list = newsMapper.getNewsList(pageNum*10);
+        return list;
+    }
+
+    @Override
+    public void setVisible(String id) {
+        newsMapper.setVisible(id);
     }
 
 }

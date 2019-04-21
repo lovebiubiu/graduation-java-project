@@ -45,19 +45,19 @@ public class HttpClient {
                 return res;
         }
         public static void main(String[] args) {
-                String url = "http://api.tianapi.com/nba/?key=345fd9f07e15937b2ff3559bd8e7a92c&num=50";
-                String res = HttpClient.doPost(url,"POST");
-                JSONObject jsonObject = JSONObject.parseObject(res);
-                String res2 = jsonObject.getString("newslist");
-                JSONArray jsonArray = JSONArray.parseArray(res2);
-
-                List<News> list = new ArrayList<>();
-                for(int i = 0 ;i<jsonArray.size();i++){
-                        JSONObject temp = jsonArray.getJSONObject(i);
-                        News newstemp = new News(Long.toString(UidUtil.getInstance().nextId()),temp.getString("picUrl"),temp.getString("ctime"),temp.getString("description"),temp.getString("title"),temp.getString("url"));
-                        list.add(newstemp);
-                }
-                System.out.println(list);
+//                String url = "http://api.tianapi.com/nba/?key=345fd9f07e15937b2ff3559bd8e7a92c&num=50";
+//                String res = HttpClient.doPost(url,"POST");
+//                JSONObject jsonObject = JSONObject.parseObject(res);
+//                String res2 = jsonObject.getString("newslist");
+//                JSONArray jsonArray = JSONArray.parseArray(res2);
+//
+//                List<News> list = new ArrayList<>();
+//                for(int i = 0 ;i<jsonArray.size();i++){
+//                        JSONObject temp = jsonArray.getJSONObject(i);
+//                        News newstemp = new News(Long.toString(UidUtil.getInstance().nextId()),temp.getString("picUrl"),temp.getString("ctime"),temp.getString("description"),temp.getString("title"),temp.getString("url"));
+//                        list.add(newstemp);
+//                }
+//                System.out.println(list);
 
         }
 }

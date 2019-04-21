@@ -23,6 +23,7 @@ public class ScheduleController {
     @ApiOperation(value = "请求赛程",notes = "根据日期请求赛程")
     @GetMapping("/getSchedule")
     public List<List<Schedule>> getSchedule(){
+        logger.info("获取赛程表");
         return scheduleService.getSchedule();
     }
 }
