@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ok.okhelper.dao.AdminMapper">
+  <resultMap id="BaseResultMap" type="com.ok.okhelper.pojo.po.Admin">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <constructor>
+      <arg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="userName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <select id="selectAdmin" resultType="com.ok.okhelper.pojo.po.Admin">
+        select * from admin
+        where userName=#{arg0} and password=#{arg1}
+  </select>
+</mapper>
