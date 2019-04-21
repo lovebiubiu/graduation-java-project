@@ -41,7 +41,7 @@ public class ProductDetailPipeline  implements Pipeline<TeamSort> {
             double penaltyShotHitRate = Double.parseDouble(list.get(i+1));
             int contestNum = Integer.parseInt(list.get(i+1));
             double contestTime = Double.parseDouble(list.get(i+1));
-            PlayerInfo player = new PlayerInfo(playerName,playerTeam,playerScore,hit,shotNum,hitRate,threePointHit,threePointShotNum,threePointHitRate,penaltyShotHit,penaltyShotHitNum,penaltyShotHitRate,contestNum,contestTime);
+            //PlayerInfo player = new PlayerInfo(playerName,playerTeam,playerScore,hit,shotNum,hitRate,threePointHit,threePointShotNum,threePointHitRate,penaltyShotHit,penaltyShotHitNum,penaltyShotHitRate,contestNum,contestTime);
             ans++;
         }
 

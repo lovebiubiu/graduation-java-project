@@ -6,7 +6,7 @@
 <generatorConfiguration>
     <!--导入属性配置-->
     <properties resource="application.properties"></properties>
-    <classPathEntry location="F:\apache-maven-3.6.0\repository\mysql\mysql-connector-java\5.1.46\mysql-connector-java-5.1.46.jar" />
+    <classPathEntry location="C:\Users\Administrator\.m2\repository\mysql\mysql-connector-java\5.1.32\mysql-connector-java-5.1.32.jar" />
 
     <context id="MysqlContext" targetRuntime="MyBatis3Simple" defaultModelType="flat">
         <!-- beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号； -->
@@ -45,74 +45,12 @@
                 type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口
         -->
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.ok.okhelper.dao" targetProject="src/main/java"/>
-        <table tableName="schedule">
-        <generatedKey column="id" sqlStatement="Mysql"/>
+        <!--<table tableName="friendlyLink">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql"/>-->
+        <!--</table>-->
+        <table tableName="admin">
+            <generatedKey column="id" sqlStatement="Mysql"/>
         </table>
-        <!--<table tableName="user">-->
-        <!--<generatedKey column="id" sqlStatement="Mysql"/>-->
-        <!--</table>-->
-        <!--<table tableName="cSessionInfo">-->
-            <!--<generatedKey column="open_id" sqlStatement="Mysql"/>-->
-        <!--</table>-->
-        <!--<table tableName="question_detail">-->
-            <!--<generatedKey column="id" sqlStatement="Mysql"/>-->
-        <!--</table>-->
-        <!--<table tableName="question_sort">-->
-            <!--<generatedKey column="id" sqlStatement="Mysql"/>-->
-        <!--</table>-->
-        <!--<table tableName="user_network">-->
-            <!--<generatedKey column="clickId" sqlStatement="Mysql"/>-->
-        <!--</table>-->
-
-        <!--<table tableName="user">-->
-        <!--<generatedKey column="id" sqlStatement="Mysql"/>-->
-        <!--</table>-->
-        <!--<table tableName="role">-->
-        <!--<generatedKey column="id" sqlStatement="Mysql"/>-->
-        <!--</table>-->
-        <!--<table tableName="permission">-->
-        <!--<generatedKey column="id" sqlStatement="Mysql"/>-->
-        <!--</table>-->
-        <!--<table tableName="store">-->
-        <!--<generatedKey column="id" sqlStatement="Mysql"/>-->
-        <!--</table>-->
-        <!--<table tableName="category">-->
-            <!--<generatedKey column="id" sqlStatement="Mysql"/>-->
-        <!--</table>-->
-        <!--<table tableName="customer">-->
-            <!--<generatedKey column="id" sqlStatement="Mysql"/>-->
-        <!--</table>-->
-        <!--<table tableName="product">-->
-            <!--<generatedKey column="id" sqlStatement="Mysql"/>-->
-        <!--</table>-->
-        <!--<table tableName="storage_order">-->
-            <!--<generatedKey column="id" sqlStatement="Mysql"/>-->
-        <!--</table>-->
-        <!--<table tableName="storage_order_detail">-->
-            <!--<generatedKey column="id" sqlStatement="Mysql"/>-->
-        <!--</table>-->
-        <!--<table tableName="sale_order">-->
-        <!--<generatedKey column="id" sqlStatement="Mysql"/>-->
-        <!--</table>-->
-        <!--<table tableName="sale_order_detail">-->
-        <!--<generatedKey column="id" sqlStatement="Mysql"/>-->
-        <!--</table>-->
-        <!--<table tableName="stock">-->
-            <!--<generatedKey column="id" sqlStatement="Mysql"/>-->
-        <!--</table>-->
-        <!--<table tableName="delivery_order">-->
-            <!--<generatedKey column="id" sqlStatement="Mysql"/>-->
-        <!--</table>-->
-        <!--<table tableName="delivery_order_detail">-->
-            <!--<generatedKey column="id" sqlStatement="Mysql"/>-->
-        <!--</table>-->
-        <!--<table tableName="supplier">-->
-            <!--<generatedKey column="id" sqlStatement="Mysql"/>-->
-        <!--</table>-->
-        <!--<table tableName="warehouse">-->
-            <!--<generatedKey column="id" sqlStatement="Mysql"/>-->
-        <!--</table>-->
-
 
     </context>
 </generatorConfiguration>
