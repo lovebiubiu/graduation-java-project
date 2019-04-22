@@ -29,7 +29,7 @@ public class ProductDetailPipeline implements Pipeline<TeamSort> {
 
     @Override
     public void process(TeamSort teamSort) {
-
+        String enterNBA = teamSort.getEnterNBA();
     }
 
 //    @Override

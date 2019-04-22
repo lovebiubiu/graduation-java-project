@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] rags) {
         System.out.println("=======start========");
-        HttpGetRequest startUrl = new HttpGetRequest("https://nba.hupu.com/stats/players/pts");
+        HttpGetRequest startUrl = new HttpGetRequest("https://nba.hupu.com/teams/rockets");
         startUrl.setCharset("GBK");
         GeccoEngine.create()
                 //Gecco搜索的包路径
