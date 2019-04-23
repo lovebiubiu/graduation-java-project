@@ -1,9 +1,11 @@
 package com.ok.okhelper.GeccoTest;
 
+import com.geccocrawler.gecco.GeccoEngine;
 import com.geccocrawler.gecco.annotation.Gecco;
 import com.geccocrawler.gecco.annotation.Href;
 import com.geccocrawler.gecco.annotation.HtmlField;
 import com.geccocrawler.gecco.annotation.Request;
+import com.geccocrawler.gecco.request.HttpGetRequest;
 import com.geccocrawler.gecco.request.HttpRequest;
 import com.geccocrawler.gecco.spider.HtmlBean;
 import lombok.Getter;
@@ -55,7 +57,21 @@ public class TeamSort implements HtmlBean {
     @HtmlField(cssPath="body > div.gamecenter_livestart > div.gamecenter_content > div.gamecenter_content_l > div.team_list_data > div.jiben_title_table > div.a > div > span.c2 > a")
     private List<String> playerList;
 
-
+    public static void main(String[] rags) {
+        System.out.println("=======start========");
+        HttpGetRequest startUrl = new HttpGetRequest("https://nba.hupu.com/teams/rockets");
+        startUrl.setCharset("GBK");
+        GeccoEngine.create()
+                //Gecco搜索的包路径
+                .classpath("com.ok.okhelper.GeccoTest")
+                //开始抓取的页面地址
+                .start(startUrl)
+                //开启几个爬虫线程
+                .thread(10)
+                //单个爬虫每次抓取完一个请求后的间隔时间
+                .interval(2000)
+                .run();
+    }
 //    // 表头
 //    @HtmlField(cssPath="#data_js > div.table_data > div > table > tbody > tr.color_font1.bg_a > td")
 //    private List<String> title;

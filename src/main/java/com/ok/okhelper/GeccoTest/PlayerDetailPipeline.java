@@ -16,6 +16,7 @@ public class PlayerDetailPipeline implements Pipeline<PlayerSort> {
         log.info("--------------------------process--------------------------------");
         List<String> infoList =playerSort.getInfo();
         String playerName = playerSort.getPlayerName();
+        List<String> playerData = playerSort.getPlayerData();
         log.info("插入球员："+playerName);
     }
 }
