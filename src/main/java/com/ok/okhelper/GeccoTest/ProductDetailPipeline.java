@@ -2,9 +2,12 @@ package com.ok.okhelper.GeccoTest;
 
 import com.geccocrawler.gecco.annotation.*;
 import com.geccocrawler.gecco.pipeline.Pipeline;
+import com.geccocrawler.gecco.scheduler.SchedulerContext;
 import com.ok.okhelper.dao.NewsMapper;
 import com.ok.okhelper.dao.PlayerMapper;
+import com.ok.okhelper.dao.TeamMapper;
 import com.ok.okhelper.pojo.po.Player;
+import com.ok.okhelper.pojo.po.Team;
 import com.ok.okhelper.util.ApplicationContextRegister;
 import com.ok.okhelper.util.UidUtil;
 import org.slf4j.Logger;
@@ -27,9 +30,25 @@ public class ProductDetailPipeline implements Pipeline<TeamSort> {
     @Autowired
     PlayerMapper playerMapper;
 
+    @Autowired
+    TeamMapper teamMapper;
+
     @Override
     public void process(TeamSort teamSort) {
+        log.info("--------------------------process--------------------------------");
+//        ApplicationContext act = ApplicationContextRegister.getApplicationContext();
+//        teamMapper = act.getBean(TeamMapper.class);
+        String teamName = teamSort.getTeamName();
         String enterNBA = teamSort.getEnterNBA();
+        String mainPlace = teamSort.getMainPlace();
+        String webstation = teamSort.getWebstation();
+        String coach = teamSort.getCoach();
+        String description = teamSort.getDescription();
+        String id = Long.toString(UidUtil.getInstance().nextId());
+        String nickName = teamSort.getRequest().getParameter("team");
+        Team team = new Team(id,nickName,teamName,"",enterNBA,mainPlace,webstation,coach,description);
+        log.info("插入球队："+teamName);
+        //teamMapper.insert(team);
     }
 
 //    @Override

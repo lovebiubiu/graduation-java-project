@@ -1,6 +1,7 @@
 package com.ok.okhelper.GeccoTest;
 
 import com.geccocrawler.gecco.annotation.Gecco;
+import com.geccocrawler.gecco.annotation.Href;
 import com.geccocrawler.gecco.annotation.HtmlField;
 import com.geccocrawler.gecco.annotation.Request;
 import com.geccocrawler.gecco.request.HttpRequest;
@@ -23,6 +24,10 @@ public class TeamSort implements HtmlBean {
     @Request
     private HttpRequest request;
 
+    //球队名称
+    @HtmlField(cssPath="body > div.gamecenter_livestart > div.gamecenter_content > div.gamecenter_content_l > div.team_data > h2 > span.title-text")
+    private String teamName;
+
     //进入NBA时间
     @HtmlField(cssPath="body > div.gamecenter_livestart > div.gamecenter_content > div.gamecenter_content_l > div.team_data > div > div.content_a > div.clearfix > div.font > p:nth-child(1)")
     private String enterNBA;
@@ -31,8 +36,7 @@ public class TeamSort implements HtmlBean {
     @HtmlField(cssPath="body > div.gamecenter_livestart > div.gamecenter_content > div.gamecenter_content_l > div.team_data > div > div.content_a > div.clearfix > div.font > p:nth-child(2)")
     private String mainPlace;
 
-    @HtmlField(cssPath="")
-    private String info;
+
 
     //官网
     @HtmlField(cssPath="body > div.gamecenter_livestart > div.gamecenter_content > div.gamecenter_content_l > div.team_data > div > div.content_a > div.clearfix > div.font > p:nth-child(3)")
@@ -45,6 +49,11 @@ public class TeamSort implements HtmlBean {
     //简介
     @HtmlField(cssPath=" body > div.gamecenter_livestart > div.gamecenter_content > div.gamecenter_content_l > div.team_data > div > div.content_a > div.txt")
     private String description;
+
+    //球员列表
+    @Href(click=true)
+    @HtmlField(cssPath="body > div.gamecenter_livestart > div.gamecenter_content > div.gamecenter_content_l > div.team_list_data > div.jiben_title_table > div.a > div > span.c2 > a")
+    private List<String> playerList;
 
 
 //    // 表头
