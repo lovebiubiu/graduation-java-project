@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ok.okhelper.dao.PlayerinfoMapper">
+  <resultMap id="BaseResultMap" type="com.ok.okhelper.pojo.po.Playerinfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <constructor>
+      <arg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="playerName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="chineseName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="avatarUrl" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="weizhi" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="shengao" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="tizhong" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="shengri" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="qiudui" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.ok.okhelper.pojo.po.Playerinfo">
+        insert into playerInfo
+        values (#{id},#{playername},#{chinesename},#{avatarurl},#{weizhi},#{shengao},#{tizhong},#{shengri},#{qiudui})
+    </insert>
+</mapper>

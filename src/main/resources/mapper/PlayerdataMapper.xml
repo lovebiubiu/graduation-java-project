@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ok.okhelper.dao.PlayerdataMapper">
+  <resultMap id="BaseResultMap" type="com.ok.okhelper.pojo.po.Playerdata">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <constructor>
+      <arg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="playerId" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="saiji" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="qiudui" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="changci" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="shoufa" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="shijian" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="toulan" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="mingzhong1" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sanfen" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="mingzhong2" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="faqiu" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="mingzhong3" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="lanban" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="zhugong" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="qiangduan" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="gaimao" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="shiwu" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="fangui" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="defen" javaType="java.lang.Double" jdbcType="DOUBLE" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.ok.okhelper.pojo.po.Playerdata">
+        insert into playerData
+        values (#{id},#{playerid},#{saiji},#{qiudui},#{changci},#{shoufa},#{shijian},#{toulan},#{mingzhong1},#{sanfen},#{mingzhong2},#{faqiu},#{mingzhong3},#{lanban},#{zhugong},#{qiangduan},#{gaimao},#{shiwu},#{fangui},#{defen})
+    </insert>
+</mapper>
