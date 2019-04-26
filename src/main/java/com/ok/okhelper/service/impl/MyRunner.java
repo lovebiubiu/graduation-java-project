@@ -3,6 +3,7 @@ package com.ok.okhelper.service.impl;
 import com.geccocrawler.gecco.GeccoEngine;
 import com.geccocrawler.gecco.request.HttpGetRequest;
 import com.ok.okhelper.service.NewsService;
+import com.ok.okhelper.util.EloRating;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,11 @@ public class MyRunner implements CommandLineRunner {
 //        NewsServiceImpl newsService = new NewsServiceImpl();
 //        newsService.NewsSchedulePlan();
 
-//        HttpGetRequest startUrl = new HttpGetRequest("https://nba.hupu.com/teams");
+//        EloRating eloRating = new EloRating();
+//        eloRating.init();
+
+
+//        HttpGetRequest startUrl = new HttpGetRequest("https://nba.hupu.com/teams/wizards");
 //        startUrl.setCharset("GBK");
 //        GeccoEngine.create()
 //                //Gecco搜索的包路径

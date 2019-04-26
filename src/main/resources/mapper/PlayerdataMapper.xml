@@ -28,8 +28,16 @@
       <arg column="defen" javaType="java.lang.Double" jdbcType="DOUBLE" />
     </constructor>
   </resultMap>
+
   <insert id="insert" parameterType="com.ok.okhelper.pojo.po.Playerdata">
         insert into playerData
         values (#{id},#{playerid},#{saiji},#{qiudui},#{changci},#{shoufa},#{shijian},#{toulan},#{mingzhong1},#{sanfen},#{mingzhong2},#{faqiu},#{mingzhong3},#{lanban},#{zhugong},#{qiangduan},#{gaimao},#{shiwu},#{fangui},#{defen})
     </insert>
+
+  <select id="selectRankList" resultType="com.ok.okhelper.pojo.po.PlayerRankList">
+    select playerInfo.chineseName,playerData.defen from playerData,playerInfo
+    where playerId = playerInfo.id and saiji='2018'
+    ORDER BY defen desc
+    limit 5
+  </select>
 </mapper>

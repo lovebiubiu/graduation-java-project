@@ -13,6 +13,6 @@
   </resultMap>
   <select id="selectAdmin" resultType="com.ok.okhelper.pojo.po.Admin">
         select * from admin
-        where userName=#{userName} and password=#{password}
+        where userName=#{arg0} and password=#{arg1}
   </select>
 </mapper>

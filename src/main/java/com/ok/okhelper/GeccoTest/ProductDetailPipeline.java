@@ -47,10 +47,10 @@ public class ProductDetailPipeline implements Pipeline<TeamSort> {
         String str1[] = enterNBA.split("：");
         enterNBA = str1[1];
         String mainPlace = teamSort.getMainPlace();
-        String str2[] = mainPlace.split("：");
-        mainPlace = str2[1];
-        str2 = mainPlace.split("分区");
-        mainPlace = str2[0].trim();
+        String str2[] = mainPlace.split(" ");
+        mainPlace = str2[0];
+        str2 = mainPlace.split("：");
+        mainPlace = str2[1].trim();
         String webstation = teamSort.getWebstation();
         String coach = teamSort.getCoach();
         String str3[] = coach.split("：");

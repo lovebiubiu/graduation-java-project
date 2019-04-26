@@ -16,6 +16,17 @@
   </resultMap>
   <insert id="insert" parameterType="com.ok.okhelper.pojo.po.Eloscore">
     insert into eloScore
-    values (#{id},#{teamid},#{rank},#{win},#{lose})
+    values (#{id},#{chinesenickname},#{teamid},#{rank},#{win},#{lose})
   </insert>
+  <select id="selectAll" resultType="com.ok.okhelper.pojo.po.Eloscore">
+    select * from eloScore
+  </select>
+  <select id="selectRankOne" parameterType="String" resultType="double">
+    select rank from eloScore
+    where chinesenickname = #{0}
+  </select>
+  <update id="updateRankOne">
+    update eloScore set rank = #{arg1}
+    where chinesenickname = #{arg0}
+  </update>
 </mapper>

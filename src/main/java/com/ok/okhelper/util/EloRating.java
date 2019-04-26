@@ -36,6 +36,7 @@ public class EloRating {
     private int ELO_Win = 1;    //胜利
     private int ELO_loss = -1;  //失败
     private int ELO_Draw = 0;   //平手
+
     public void init(){
         //初始化所有队伍分数为ELO_Default
         ApplicationContext act = ApplicationContextRegister.getApplicationContext();
@@ -49,7 +50,7 @@ public class EloRating {
             Team team = list.get(i);
             id = Long.toString(UidUtil.getInstance().nextId());
             teamId = team.getId();
-            chineseNickName = team.getChinesename();
+            chineseNickName = team.getChinesenickname();
             rank = ELO_Default;
             eloscore = new Eloscore(id,chineseNickName,teamId,rank,0,0);
             eloscoreMapper.insert(eloscore);
@@ -65,6 +66,7 @@ public class EloRating {
             return 36;
         }
     }
+
     public void setResult(int res){
         double scoreA=getWinRating();
         double scoreB=1-scoreA;
@@ -83,9 +85,11 @@ public class EloRating {
         Rating_A = Rating_A + getK(Rating_A)*(score_adjust_A-scoreA);
         Rating_B = Rating_B + getK(Rating_B)*(score_adjust_B-scoreB);
     }
+
     public double getWinRating(){
         return 1/(1+pow(10,(Rating_B-Rating_A)/400));
     }
+
     public static void main(String[] args){
         EloRating eloRating = new EloRating();
         eloRating.setRating_A(1500);

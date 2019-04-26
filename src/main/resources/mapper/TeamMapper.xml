@@ -20,10 +20,13 @@
   </resultMap>
   <insert id="insert" parameterType="com.ok.okhelper.pojo.po.Team">
         insert into team
-        values (#{id},#{nickname},#{teamname},#{chinesename},#{enternba},#{mainplace},#{webstation},#{coach},#{description})
+        values (#{id},#{nickname},#{teamname},#{chinesename},#{chinesenickname},#{enternba},#{mainplace},#{webstation},#{coach},#{description})
     </insert>
 
-  <select id="selectAll">
+  <select id="selectAll" resultType="com.ok.okhelper.pojo.po.Team">
     select * from team
+  </select>
+  <select id="selectRankList">
+
   </select>
 </mapper>
