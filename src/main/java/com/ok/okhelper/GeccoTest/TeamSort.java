@@ -41,7 +41,7 @@ public class TeamSort implements HtmlBean {
 
 
     //官网
-    @HtmlField(cssPath="body > div.gamecenter_livestart > div.gamecenter_content > div.gamecenter_content_l > div.team_data > div > div.content_a > div.clearfix > div.font > p:nth-child(3)")
+    @HtmlField(cssPath="body > div.gamecenter_livestart > div.gamecenter_content > div.gamecenter_content_l > div.team_data > div > div.content_a > div.clearfix > div.font > p:nth-child(3) > a")
     private String webstation;
 
     //教练
@@ -72,19 +72,4 @@ public class TeamSort implements HtmlBean {
                 .interval(2000)
                 .run();
     }
-//    // 表头
-//    @HtmlField(cssPath="#data_js > div.table_data > div > table > tbody > tr.color_font1.bg_a > td")
-//    private List<String> title;
-//
-//    //球员数据
-//    @HtmlField(cssPath="#data_js > div.table_data > div > table > tbody > tr > td")
-//    private List<String> playerData;
-//
-//    //球员姓名
-//    @HtmlField(cssPath="#data_js > div.table_data > div > table > tbody > tr > td.left > a")
-//    private List<String> playerName;
-//
-//    //球队姓名
-//    @HtmlField(cssPath="#data_js > div.table_data > div > table > tbody > tr > td:nth-child(3) > a")
-//    private List<String> teamName;
 }

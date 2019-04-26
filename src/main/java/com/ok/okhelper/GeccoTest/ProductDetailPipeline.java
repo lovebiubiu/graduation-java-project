@@ -36,19 +36,31 @@ public class ProductDetailPipeline implements Pipeline<TeamSort> {
     @Override
     public void process(TeamSort teamSort) {
         log.info("--------------------------process--------------------------------");
-//        ApplicationContext act = ApplicationContextRegister.getApplicationContext();
-//        teamMapper = act.getBean(TeamMapper.class);
+        ApplicationContext act = ApplicationContextRegister.getApplicationContext();
+        teamMapper = act.getBean(TeamMapper.class);
         String teamName = teamSort.getTeamName();
+        String[] str = teamName.split("（");
+        str[0]=str[0].trim();
+        str[1]=str[1].trim();
+        str[1]=str[1].substring(0,str[1].length()-1);
         String enterNBA = teamSort.getEnterNBA();
+        String str1[] = enterNBA.split("：");
+        enterNBA = str1[1];
         String mainPlace = teamSort.getMainPlace();
+        String str2[] = mainPlace.split("：");
+        mainPlace = str2[1];
+        str2 = mainPlace.split("分区");
+        mainPlace = str2[0].trim();
         String webstation = teamSort.getWebstation();
         String coach = teamSort.getCoach();
+        String str3[] = coach.split("：");
+        coach = str3[1];
         String description = teamSort.getDescription();
         String id = Long.toString(UidUtil.getInstance().nextId());
         String nickName = teamSort.getRequest().getParameter("team");
-        Team team = new Team(id,nickName,teamName,"",enterNBA,mainPlace,webstation,coach,description);
+        Team team = new Team(id,nickName,str[1],str[0],enterNBA,mainPlace,webstation,coach,description);
         log.info("插入球队："+teamName);
-        //teamMapper.insert(team);
+        teamMapper.insert(team);
     }
 
 //    @Override

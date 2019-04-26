@@ -30,8 +30,16 @@ public class PlayerSort implements HtmlBean {
     private List<String> info;
 
     //球员数据
-    @HtmlField(cssPath="body > div.gamecenter_livestart > div.gamecenter_content > div.gamecenter_content_l > div:nth-child(2) > div.tables_check2.Js_playe_table > div.all_tables_check > div:nth-child(2) > div > table:nth-child(1) > tbody > tr:nth-child(3) > td")
+    @HtmlField(cssPath="#in_box > div > div:nth-child(1) > table.players_table.bott.bgs_table > tbody > tr > td")
     private List<String> playerData;
+
+    //球员球队
+    @HtmlField(cssPath="body > div.gamecenter_livestart > div.gamecenter_content > div.gamecenter_content_l > div.team_data > div > div.content_a > div > div.font > p:nth-child(5) > a")
+    private String playerTeam;
+
+    //球员头像
+    @HtmlField(cssPath="body > div.gamecenter_livestart > div.gamecenter_content > div.gamecenter_content_l > div.team_data > div > div.content_a > div > div.img")
+    private String playerAvatar;
 
 
 }
