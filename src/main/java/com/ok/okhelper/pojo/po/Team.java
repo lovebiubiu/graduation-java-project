@@ -15,6 +15,9 @@ public class Team {
     @Column(name = "chineseName")
     private String chinesename;
 
+    @Column(name = "chineseNickName")
+    private String chinesenickname;
+
     @Column(name = "enterNBA")
     private String enternba;
 
@@ -27,11 +30,12 @@ public class Team {
 
     private String description;
 
-    public Team(String id, String nickname, String teamname, String chinesename, String enternba, String mainplace, String webstation, String coach, String description) {
+    public Team(String id, String nickname, String teamname, String chinesename, String chinesenickname, String enternba, String mainplace, String webstation, String coach, String description) {
         this.id = id;
         this.nickname = nickname;
         this.teamname = teamname;
         this.chinesename = chinesename;
+        this.chinesenickname = chinesenickname;
         this.enternba = enternba;
         this.mainplace = mainplace;
         this.webstation = webstation;
@@ -97,6 +101,20 @@ public class Team {
      */
     public void setChinesename(String chinesename) {
         this.chinesename = chinesename == null ? null : chinesename.trim();
+    }
+
+    /**
+     * @return chineseNickName
+     */
+    public String getChinesenickname() {
+        return chinesenickname;
+    }
+
+    /**
+     * @param chinesenickname
+     */
+    public void setChinesenickname(String chinesenickname) {
+        this.chinesenickname = chinesenickname == null ? null : chinesenickname.trim();
     }
 
     /**

@@ -25,18 +25,18 @@ public class MyRunner implements CommandLineRunner {
 //        NewsServiceImpl newsService = new NewsServiceImpl();
 //        newsService.NewsSchedulePlan();
 
-        HttpGetRequest startUrl = new HttpGetRequest("https://nba.hupu.com/teams");
-        startUrl.setCharset("GBK");
-        GeccoEngine.create()
-                //Gecco搜索的包路径
-                .classpath("com.ok.okhelper.GeccoTest")
-                //开始抓取的页面地址
-                .start(startUrl)
-                //开启几个爬虫线程
-                .thread(10)
-                //单个爬虫每次抓取完一个请求后的间隔时间
-                .interval(2000)
-                .run();
+//        HttpGetRequest startUrl = new HttpGetRequest("https://nba.hupu.com/teams");
+//        startUrl.setCharset("GBK");
+//        GeccoEngine.create()
+//                //Gecco搜索的包路径
+//                .classpath("com.ok.okhelper.GeccoTest")
+//                //开始抓取的页面地址
+//                .start(startUrl)
+//                //开启几个爬虫线程
+//                .thread(10)
+//                //单个爬虫每次抓取完一个请求后的间隔时间
+//                .interval(2000)
+//                .run();
 
     }
     public static void main(String[] args) throws IOException {

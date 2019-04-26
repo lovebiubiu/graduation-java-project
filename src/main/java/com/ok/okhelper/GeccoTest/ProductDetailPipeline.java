@@ -58,7 +58,7 @@ public class ProductDetailPipeline implements Pipeline<TeamSort> {
         String description = teamSort.getDescription();
         String id = Long.toString(UidUtil.getInstance().nextId());
         String nickName = teamSort.getRequest().getParameter("team");
-        Team team = new Team(id,nickName,str[1],str[0],enterNBA,mainPlace,webstation,coach,description);
+        Team team = new Team(id,nickName,str[1],str[0],"",enterNBA,mainPlace,webstation,coach,description);
         log.info("插入球队："+teamName);
         teamMapper.insert(team);
     }

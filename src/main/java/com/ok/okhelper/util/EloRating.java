@@ -1,9 +1,16 @@
 package com.ok.okhelper.util;
 
 
+import com.ok.okhelper.dao.EloscoreMapper;
+import com.ok.okhelper.dao.TeamMapper;
+import com.ok.okhelper.pojo.po.Eloscore;
+import com.ok.okhelper.pojo.po.Team;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+
+import java.util.List;
 
 import static java.lang.Math.pow;
 
@@ -18,14 +25,35 @@ import static java.lang.Math.pow;
 @Getter
 @Setter
 public class EloRating {
+    @Autowired
+    TeamMapper teamMapper;
+
+    @Autowired
+    EloscoreMapper eloscoreMapper;
     private double Rating_A = 0;
     private double Rating_B = 0;
     private double ELO_Default = 1500;
     private int ELO_Win = 1;    //胜利
     private int ELO_loss = -1;  //失败
     private int ELO_Draw = 0;   //平手
-    public static void init(){
+    public void init(){
         //初始化所有队伍分数为ELO_Default
+        ApplicationContext act = ApplicationContextRegister.getApplicationContext();
+        teamMapper = act.getBean(TeamMapper.class);
+        eloscoreMapper = act.getBean(EloscoreMapper.class);
+        List<Team> list = teamMapper.selectAll();
+        String id,teamId,chineseNickName;
+        Eloscore eloscore;
+        double rank;
+        for(int i=0;i<list.size();i++){
+            Team team = list.get(i);
+            id = Long.toString(UidUtil.getInstance().nextId());
+            teamId = team.getId();
+            chineseNickName = team.getChinesename();
+            rank = ELO_Default;
+            eloscore = new Eloscore(id,chineseNickName,teamId,rank,0,0);
+            eloscoreMapper.insert(eloscore);
+        }
     }
 
     public int getK(double rating){
