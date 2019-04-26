@@ -95,5 +95,6 @@ public class EloRating {
         System.out.println("A的积分变化为:"+eloRating.getRating_A()+"|||B的积分变化为:"+eloRating.getRating_B());
         winrate = eloRating.getWinRating();
         System.out.println("A的胜率为:"+winrate+"|||B的胜率为:"+(1-winrate));
+
     }
 }
