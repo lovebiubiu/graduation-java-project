@@ -28,10 +28,16 @@ public class TeamController {
 
     @Autowired
     EloscoreMapper eloscoreMapper;
-    @ApiOperation(value = "请求球队等级分列表",notes = "请求球队等级分列表")
+    @ApiOperation(value = "请求球队等级分列表",notes = "后台请求球队等级分列表")
     @GetMapping("/getTeamEloList")
     public List<Eloscore> getPlayerList(){
         return eloscoreMapper.selectAll();
+    }
+
+    @ApiOperation(value = "请求球队势力值列表",notes = "前台请求势力值列表")
+    @GetMapping("/getTeamRankList")
+    public List<Eloscore> getTeamRankList(){
+        return eloscoreMapper.selectRankList();
     }
 
     @ApiOperation(value = "录入一场结果",notes = "请求录入一场球赛结果，默认team1胜利 team2失败")

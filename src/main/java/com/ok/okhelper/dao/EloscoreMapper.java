@@ -16,6 +16,8 @@ public interface EloscoreMapper extends MyMapper<Eloscore> {
     @Override
     List<Eloscore> selectAll();
 
+    List<Eloscore> selectRankList();
+
     double selectRankOne(String teamName);
 
     void updateRankOne(String teamName,double rank);

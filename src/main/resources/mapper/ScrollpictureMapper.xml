@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ok.okhelper.dao.ScrollpictureMapper">
+  <resultMap id="BaseResultMap" type="com.ok.okhelper.pojo.po.Scrollpicture">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <constructor>
+      <arg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="picture_url" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="picture_title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="news_url" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <select id="selectList" resultType="com.ok.okhelper.pojo.po.Scrollpicture">
+    select id,picture_url as pictureUrl,picture_title as pictureTitle , news_url as newsUrl from scrollPicture
+  </select>
+  <insert id="insertOne" parameterType="com.ok.okhelper.pojo.po.Scrollpicture">
+    insert into scrollPicture
+    values(#{id},#{pictureUrl},#{pictureTitle},#{newsUrl})
+  </insert>
+  <delete id="deleteOne" parameterType="String">
+    delete from scrollPicture
+    where id = #{0}
+  </delete>
+  <update id="updateOne" parameterType="com.ok.okhelper.pojo.po.Scrollpicture">
+    update scrollPicture set picture_url = #{pictureUrl} , picture_title = #{pictureTitle},news_url = #{newsUrl}
+    where id = #{id}
+  </update>
+</mapper>
