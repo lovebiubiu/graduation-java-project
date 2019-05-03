@@ -30,6 +30,10 @@ public class TeamSort implements HtmlBean {
     @HtmlField(cssPath="body > div.gamecenter_livestart > div.gamecenter_content > div.gamecenter_content_l > div.team_data > h2 > span.title-text")
     private String teamName;
 
+    //球队队徽
+    @HtmlField(cssPath="body > div.gamecenter_livestart > div.gamecenter_content > div.gamecenter_content_l > div.team_data > div > div.content_a > div.clearfix > div.img")
+    private String teamAvatar;
+
     //进入NBA时间
     @HtmlField(cssPath="body > div.gamecenter_livestart > div.gamecenter_content > div.gamecenter_content_l > div.team_data > div > div.content_a > div.clearfix > div.font > p:nth-child(1)")
     private String enterNBA;
@@ -37,8 +41,6 @@ public class TeamSort implements HtmlBean {
     //主场
     @HtmlField(cssPath="body > div.gamecenter_livestart > div.gamecenter_content > div.gamecenter_content_l > div.team_data > div > div.content_a > div.clearfix > div.font > p:nth-child(2)")
     private String mainPlace;
-
-
 
     //官网
     @HtmlField(cssPath="body > div.gamecenter_livestart > div.gamecenter_content > div.gamecenter_content_l > div.team_data > div > div.content_a > div.clearfix > div.font > p:nth-child(3) > a")
@@ -53,7 +55,7 @@ public class TeamSort implements HtmlBean {
     private String description;
 
     //球员列表
-    @Href(click=true)
+//    @Href(click=true)
     @HtmlField(cssPath="body > div.gamecenter_livestart > div.gamecenter_content > div.gamecenter_content_l > div.team_list_data > div.jiben_title_table > div.a > div > span.c2 > a")
     private List<String> playerList;
 

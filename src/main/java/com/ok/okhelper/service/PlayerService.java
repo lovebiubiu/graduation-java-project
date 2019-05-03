@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface PlayerService {
     List<Player> getPlayerList();
+
+    void initPlayerList();
+
+
 }

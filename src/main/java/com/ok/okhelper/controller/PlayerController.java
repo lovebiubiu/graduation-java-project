@@ -1,11 +1,9 @@
 package com.ok.okhelper.controller;
 
 import com.ok.okhelper.dao.EloscoreMapper;
+import com.ok.okhelper.dao.PlayerMapper;
 import com.ok.okhelper.dao.PlayerdataMapper;
-import com.ok.okhelper.pojo.po.News;
-import com.ok.okhelper.pojo.po.Player;
-import com.ok.okhelper.pojo.po.PlayerRankList;
-import com.ok.okhelper.pojo.po.Playerdata;
+import com.ok.okhelper.pojo.po.*;
 import com.ok.okhelper.service.PlayerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,18 +18,30 @@ import java.util.List;
 public class PlayerController {
     @Autowired
     PlayerService playerService;
-
     @Autowired
     PlayerdataMapper playerdataMapper;
+    @Autowired
+    PlayerMapper playerMapper;
+
     @ApiOperation(value = "请求球员列表",notes = "获取球员列表")
     @GetMapping("/getPlayerList")
-    public List<Player> getPlayerList(){
-        return playerService.getPlayerList();
+    public List<Playerdata> getPlayerList(int pageNum){
+        return playerdataMapper.selectList(pageNum*9);
+    }
+    @ApiOperation(value = "请求球员列表总数",notes = "请求球员列表总数")
+    @GetMapping("/getAllLength")
+    public int getAllLength(){
+        return playerdataMapper.selectLength().size();
+    }
+    @ApiOperation(value = "请求球员战力值排名",notes = "请求球员战力值排名列表")
+    @GetMapping("/getPlayerRankList")
+    public List<player_playerInfo> getPlayerRankList(){
+        return playerMapper.selectRankList();
     }
 
-    @ApiOperation(value = "请求球员战力值列表",notes = "请求球员战力值列表")
-    @GetMapping("/getPlayerEloList")
-    public List<PlayerRankList> getPlayerEloList(){
-        return playerdataMapper.selectRankList();
+    @ApiOperation(value = "刷新战力评分",notes = "刷新球员战力评分")
+    @GetMapping("/initPlayerRank")
+    public void InitPlayerRank(){
+        playerService.initPlayerList();
     }
 }

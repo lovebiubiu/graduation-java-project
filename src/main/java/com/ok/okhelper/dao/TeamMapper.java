@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+
 @Mapper
 @Component(value = "TeamMapper")
 public interface TeamMapper extends MyMapper<Team> {

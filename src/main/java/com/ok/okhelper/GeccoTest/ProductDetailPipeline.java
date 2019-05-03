@@ -43,6 +43,9 @@ public class ProductDetailPipeline implements Pipeline<TeamSort> {
         str[0]=str[0].trim();
         str[1]=str[1].trim();
         str[1]=str[1].substring(0,str[1].length()-1);
+        String teamAvatar = teamSort.getTeamAvatar();
+        String str4[] = teamAvatar.split("\"");
+        teamAvatar = str4[1];
         String enterNBA = teamSort.getEnterNBA();
         String str1[] = enterNBA.split("：");
         enterNBA = str1[1];
@@ -58,7 +61,7 @@ public class ProductDetailPipeline implements Pipeline<TeamSort> {
         String description = teamSort.getDescription();
         String id = Long.toString(UidUtil.getInstance().nextId());
         String nickName = teamSort.getRequest().getParameter("team");
-        Team team = new Team(id,nickName,str[1],str[0],"",enterNBA,mainPlace,webstation,coach,description);
+        Team team = new Team(id,nickName,str[1],str[0],"",teamAvatar,enterNBA,mainPlace,webstation,coach,description);
         log.info("插入球队："+teamName);
         teamMapper.insert(team);
     }

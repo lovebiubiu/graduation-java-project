@@ -18,6 +18,9 @@ public class Team {
     @Column(name = "chineseNickName")
     private String chinesenickname;
 
+    @Column(name = "teamAvatar")
+    private String teamavatar;
+
     @Column(name = "enterNBA")
     private String enternba;
 
@@ -30,12 +33,13 @@ public class Team {
 
     private String description;
 
-    public Team(String id, String nickname, String teamname, String chinesename, String chinesenickname, String enternba, String mainplace, String webstation, String coach, String description) {
+    public Team(String id, String nickname, String teamname, String chinesename, String chinesenickname, String teamavatar, String enternba, String mainplace, String webstation, String coach, String description) {
         this.id = id;
         this.nickname = nickname;
         this.teamname = teamname;
         this.chinesename = chinesename;
         this.chinesenickname = chinesenickname;
+        this.teamavatar = teamavatar;
         this.enternba = enternba;
         this.mainplace = mainplace;
         this.webstation = webstation;
@@ -115,6 +119,20 @@ public class Team {
      */
     public void setChinesenickname(String chinesenickname) {
         this.chinesenickname = chinesenickname == null ? null : chinesenickname.trim();
+    }
+
+    /**
+     * @return teamAvatar
+     */
+    public String getTeamavatar() {
+        return teamavatar;
+    }
+
+    /**
+     * @param teamavatar
+     */
+    public void setTeamavatar(String teamavatar) {
+        this.teamavatar = teamavatar == null ? null : teamavatar.trim();
     }
 
     /**

@@ -7,27 +7,30 @@
     -->
     <constructor>
       <arg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="playerName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="playerId" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="playerTeam" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="playerScore" javaType="java.lang.Double" jdbcType="DOUBLE" />
-      <arg column="hit" javaType="java.lang.Double" jdbcType="DOUBLE" />
-      <arg column="shotNum" javaType="java.lang.Double" jdbcType="DOUBLE" />
-      <arg column="hitRate" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="threePointHit" javaType="java.lang.Double" jdbcType="DOUBLE" />
-      <arg column="threePointShotNum" javaType="java.lang.Double" jdbcType="DOUBLE" />
-      <arg column="threePointHitRate" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="penaltyShotHit" javaType="java.lang.Double" jdbcType="DOUBLE" />
-      <arg column="penaltyShotHitNum" javaType="java.lang.Double" jdbcType="DOUBLE" />
-      <arg column="penaltyShotHitRate" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="contestNum" javaType="java.lang.Double" jdbcType="DOUBLE" />
-      <arg column="contestTime" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="playerRank" javaType="java.lang.Double" jdbcType="DOUBLE" />
     </constructor>
   </resultMap>
   <insert id="insert" parameterType="com.ok.okhelper.pojo.po.Player">
     insert into player
-    values(#{id},#{playername},#{playerteam},#{playerscore},#{hit},#{shotnum},#{hitrate},#{threepointhit},#{threepointshotnum},#{threepointhitrate},#{penaltyshothit},#{penaltyshothitnum},#{penaltyshothitrate},#{contestnum},#{contesttime})
+    values(#{id},#{playerid},#{playerteam},#{playerrank})
   </insert>
-  <select id="getPlayerList" resultType="com.ok.okhelper.pojo.po.Player">
-    select * from player
+  <select id="selectRankList" resultType="com.ok.okhelper.pojo.po.player_playerInfo">
+      select playerId,chineseName,playerRank from player,playerInfo
+      where playerInfo.id = player.playerId
+      GROUP BY playerId
+      ORDER BY playerRank desc
+      limit 5
   </select>
+  <select id="checkPlayer" parameterType="String"  resultType="com.ok.okhelper.pojo.po.Player">
+      select *  from player
+      where playerId = #{0}
+      limit 1
+  </select>
+
+  <update id="updatePlayer" parameterType="com.ok.okhelper.pojo.po.Player">
+    update player set playerTeam = #{playerteam} , playerRank = #{playerrank}
+    where playerId = #{playerid}
+  </update>
 </mapper>
