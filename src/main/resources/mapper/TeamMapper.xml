@@ -27,7 +27,4 @@
   <select id="selectAll" resultType="com.ok.okhelper.pojo.po.Team">
     select * from team
   </select>
-  <select id="selectRankList">
-
-  </select>
 </mapper>

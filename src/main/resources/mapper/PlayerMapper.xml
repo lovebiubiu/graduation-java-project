@@ -33,4 +33,5 @@
     update player set playerTeam = #{playerteam} , playerRank = #{playerrank}
     where playerId = #{playerid}
   </update>
+
 </mapper>

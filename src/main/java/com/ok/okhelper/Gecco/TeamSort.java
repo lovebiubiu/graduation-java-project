@@ -1,4 +1,4 @@
-package com.ok.okhelper.GeccoTest;
+package com.ok.okhelper.Gecco;
 
 import com.geccocrawler.gecco.GeccoEngine;
 import com.geccocrawler.gecco.annotation.Gecco;
@@ -11,7 +11,6 @@ import com.geccocrawler.gecco.spider.HtmlBean;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.websocket.server.ServerEndpoint;
 import java.util.List;
 
 /**
@@ -55,7 +54,7 @@ public class TeamSort implements HtmlBean {
     private String description;
 
     //球员列表
-//    @Href(click=true)
+    @Href(click=true)
     @HtmlField(cssPath="body > div.gamecenter_livestart > div.gamecenter_content > div.gamecenter_content_l > div.team_list_data > div.jiben_title_table > div.a > div > span.c2 > a")
     private List<String> playerList;
 
@@ -65,7 +64,7 @@ public class TeamSort implements HtmlBean {
         startUrl.setCharset("GBK");
         GeccoEngine.create()
                 //Gecco搜索的包路径
-                .classpath("com.ok.okhelper.GeccoTest")
+                .classpath("com.ok.okhelper.Gecco")
                 //开始抓取的页面地址
                 .start(startUrl)
                 //开启几个爬虫线程

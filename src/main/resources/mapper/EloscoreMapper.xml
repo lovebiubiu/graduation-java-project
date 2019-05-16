@@ -34,4 +34,8 @@
     update eloScore set rank = #{rank}
     where chinesenickname = #{teamName}
   </update>
+  <select id="getOneEloscore" parameterType="String" resultType="Double">
+    select rank from eloScore
+    where chineseNickName = #{0}
+  </select>
 </mapper>

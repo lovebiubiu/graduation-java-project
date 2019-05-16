@@ -35,8 +35,8 @@
     </insert>
 
   <select id="selectList" parameterType="int" resultType="com.ok.okhelper.pojo.po.Playerinfo_PlayerData">
-    select * from playerData,playerInfo
-    where saiji = '2018' and playerData.playerId =playerInfo.id
+    select * from playerInfo,playerData
+    where saiji = '2018' and playerInfo.id=playerData.playerId
     group by playerData.playerId
     limit #{0},9
   </select>

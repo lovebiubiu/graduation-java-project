@@ -21,4 +21,8 @@
         insert into playerInfo
         values (#{id},#{playername},#{chinesename},#{avatarurl},#{weizhi},#{shengao},#{tizhong},#{shengri},#{qiudui})
     </insert>
+  <select id="selectOnePlayer" parameterType="String" resultType="com.ok.okhelper.pojo.po.Playerinfo">
+        select * from playerInfo
+        where id = #{0}
+    </select>
 </mapper>

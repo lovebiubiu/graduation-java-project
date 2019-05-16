@@ -1,11 +1,9 @@
-package com.ok.okhelper.GeccoTest;
+package com.ok.okhelper.Gecco;
 
 import com.geccocrawler.gecco.annotation.PipelineName;
 import com.geccocrawler.gecco.pipeline.Pipeline;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 @PipelineName("allPipeline")
 public class AllSortPipeline  implements Pipeline<AllSort> {

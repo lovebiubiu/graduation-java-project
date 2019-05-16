@@ -1,10 +1,9 @@
-package com.ok.okhelper.GeccoTest;
+package com.ok.okhelper.Gecco;
 
 import com.geccocrawler.gecco.annotation.PipelineName;
 import com.geccocrawler.gecco.pipeline.Pipeline;
 import com.ok.okhelper.dao.PlayerdataMapper;
 import com.ok.okhelper.dao.PlayerinfoMapper;
-import com.ok.okhelper.dao.TeamMapper;
 import com.ok.okhelper.pojo.po.Playerdata;
 import com.ok.okhelper.pojo.po.Playerinfo;
 import com.ok.okhelper.util.ApplicationContextRegister;

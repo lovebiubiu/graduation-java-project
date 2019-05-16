@@ -1,4 +1,4 @@
-package com.ok.okhelper.GeccoTest;
+package com.ok.okhelper.Gecco;
 
 import com.geccocrawler.gecco.annotation.Gecco;
 import com.geccocrawler.gecco.annotation.Href;

@@ -4,7 +4,9 @@ import com.ok.okhelper.dao.EloscoreMapper;
 import com.ok.okhelper.dao.TeamMapper;
 import com.ok.okhelper.pojo.po.Eloscore;
 import com.ok.okhelper.pojo.po.Player;
+import com.ok.okhelper.pojo.po.ScheduleForecast;
 import com.ok.okhelper.pojo.po.Team;
+import com.ok.okhelper.service.ScheduleService;
 import com.ok.okhelper.util.EloRating;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,8 +30,12 @@ public class TeamController {
 
     @Autowired
     EloscoreMapper eloscoreMapper;
-    @ApiOperation(value = "请求球队等级分列表",notes = "后台请求球队等级分列表")
-    @GetMapping("/getTeamEloList")
+
+    @Autowired
+    ScheduleService scheduleService;
+
+    @ApiOperation(value = "请求球队列表",notes = "前台请求球队列表")
+    @GetMapping("/getTeamList")
     public List<Eloscore> getPlayerList(){
         return eloscoreMapper.selectAll();
     }
@@ -38,6 +44,12 @@ public class TeamController {
     @GetMapping("/getTeamRankList")
     public List<Eloscore> getTeamRankList(){
         return eloscoreMapper.selectRankList();
+    }
+
+    @ApiOperation(value = "请求比赛势力值及胜率",notes = "请求比赛势力值及胜率")
+    @GetMapping("/getEloscoreandRate")
+    public List<ScheduleForecast> getEloscoreandRate(String team1,String team2){
+        return scheduleService.getForecast(team1,team2);
     }
 
     @ApiOperation(value = "录入一场结果",notes = "请求录入一场球赛结果，默认team1胜利 team2失败")

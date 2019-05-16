@@ -1,12 +1,9 @@
-package com.ok.okhelper.GeccoTest;
+package com.ok.okhelper.Gecco;
 
 import com.geccocrawler.gecco.annotation.*;
 import com.geccocrawler.gecco.pipeline.Pipeline;
-import com.geccocrawler.gecco.scheduler.SchedulerContext;
-import com.ok.okhelper.dao.NewsMapper;
 import com.ok.okhelper.dao.PlayerMapper;
 import com.ok.okhelper.dao.TeamMapper;
-import com.ok.okhelper.pojo.po.Player;
 import com.ok.okhelper.pojo.po.Team;
 import com.ok.okhelper.util.ApplicationContextRegister;
 import com.ok.okhelper.util.UidUtil;
@@ -14,11 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by xb

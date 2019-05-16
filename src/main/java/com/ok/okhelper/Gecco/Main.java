@@ -1,4 +1,4 @@
-package com.ok.okhelper.GeccoTest;
+package com.ok.okhelper.Gecco;
 
 import com.geccocrawler.gecco.GeccoEngine;
 import com.geccocrawler.gecco.request.HttpGetRequest;
@@ -12,7 +12,7 @@ public class Main {
         startUrl.setCharset("GBK");
         GeccoEngine.create()
                 //Gecco搜索的包路径
-                .classpath("com.ok.okhelper.GeccoTest")
+                .classpath("com.ok.okhelper.Gecco")
                 //开始抓取的页面地址
                 .start(startUrl)
                 //开启几个爬虫线程
