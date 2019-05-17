@@ -34,11 +34,18 @@ public class TeamController {
     @Autowired
     ScheduleService scheduleService;
 
-    @ApiOperation(value = "请求球队列表",notes = "前台请求球队列表")
+    @ApiOperation(value = "请求球队列表",notes = "后台请求球队列表")
     @GetMapping("/getTeamList")
     public List<Eloscore> getPlayerList(){
         return eloscoreMapper.selectAll();
     }
+
+    @ApiOperation(value = "请求球队列表",notes = "前台请求球队列表")
+    @GetMapping("/getAllList")
+    public List<Team> getAllList(){
+        return teamMapper.selectAll();
+    }
+
 
     @ApiOperation(value = "请求球队势力值列表",notes = "前台请求势力值列表")
     @GetMapping("/getTeamRankList")
